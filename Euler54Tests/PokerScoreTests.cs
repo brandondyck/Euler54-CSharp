@@ -10,8 +10,8 @@ namespace Euler54Tests
         [TestMethod]
         public void IdenticalHandsAreADraw()
         {
-            var player1 = new PokerScore(new Rank(RankType.Flush, Value.Ten), Value.Three);
-            var player2 = new PokerScore(new Rank(RankType.Flush, Value.Ten), Value.Three);
+            var player1 = new PokerScore(new Rank(RankType.Flush, Value.T), Value.Three);
+            var player2 = new PokerScore(new Rank(RankType.Flush, Value.T), Value.Three);
             Assert.AreEqual(0, player1.CompareTo(player2));
         }
 
@@ -27,7 +27,7 @@ namespace Euler54Tests
         public void HighestInRankWinsOnTiedRank()
         {
             var player1 = new PokerScore(new Rank(RankType.Straight, Value.Six), Value.A);
-            var player2 = new PokerScore(new Rank(RankType.Straight, Value.Ten), Value.J);
+            var player2 = new PokerScore(new Rank(RankType.Straight, Value.T), Value.J);
             Assert.IsTrue(player1.CompareTo(player2) < 0);
         }
 

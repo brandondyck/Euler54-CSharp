@@ -19,7 +19,7 @@ namespace Euler54_CSharp
         Seven = 7,
         Eight = 8,
         Nine = 9,
-        Ten = 10,
+        T = 10,
         J = 11,
         Q = 12,
         K = 13,
@@ -48,23 +48,6 @@ namespace Euler54_CSharp
             return String.Format("Card({0}, {1})", Value, Suit);
         }
 
-        public static Card Parse(string s)
-        {
-            try
-            {
-                int suitIndex = s.Length - 1;
-                string valueString = s.Substring(0, suitIndex);
-                string suitString = s.Substring(suitIndex);
-                Value value = (Value)Enum.Parse(typeof(Euler54_CSharp.Value), valueString);
-                Suit suit = (Suit)Enum.Parse(typeof(Euler54_CSharp.Suit), suitString);
-                return new Card(value, suit);
-            }
-            catch (Exception e)
-            {
-                throw new ArgumentException("invalid card string: " + s, e);
-            }
-        }
-
         public bool Equals(Card other)
         {
             return Suit.Equals(other.Suit) && Value.Equals(other.Value);
@@ -73,6 +56,28 @@ namespace Euler54_CSharp
         public override bool Equals(object obj)
         {
             return obj is Card && ((IEquatable<Card>)obj).Equals(this);
+        }
+
+        public static Card Parse(string s)
+        {
+            try
+            {
+                Value value = (Value)Enum.Parse(typeof(Euler54_CSharp.Value), s[0].ToString());
+                Suit suit = (Suit)Enum.Parse(typeof(Euler54_CSharp.Suit), s[1].ToString());
+                return new Card(value, suit);
+            }
+            catch (Exception e)
+            {
+                throw new ArgumentException("invalid card string: " + s, e);
+            }
+        }
+
+        public static (IEnumerable<Card>, IEnumerable<Card>) ParseHands(string s)
+        {
+            string[] allCardStrings = s.Split(' ');
+            var player1Cards = new ArraySegment<string>(allCardStrings, 0, 5).Select(Parse);
+            var player2Cards = new ArraySegment<string>(allCardStrings, 5, 5).Select(Parse);
+            return (player1Cards, player2Cards);
         }
     }
 }

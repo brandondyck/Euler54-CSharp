@@ -10,7 +10,7 @@ namespace Euler54_CSharp
     {
         static void Main(string[] args)
         {
-            Console.WriteLine(new PokerScore(new Rank(RankType.FullHouse, Value.J), Value.Ten));
+            Console.WriteLine(new PokerScore(new Rank(RankType.FullHouse, Value.J), Value.T));
         }
     }
 }
