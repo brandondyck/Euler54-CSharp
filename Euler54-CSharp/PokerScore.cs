@@ -6,25 +6,6 @@ using System.Threading.Tasks;
 
 namespace Euler54_CSharp
 {
-    public enum Suit { H, D, C, S }
-
-    public enum Value
-    {
-        Two = 2,
-        Three = 3,
-        Four = 4,
-        Five = 5,
-        Six = 6,
-        Seven = 7,
-        Eight = 8,
-        Nine = 9,
-        Ten = 10,
-        J = 11,
-        Q = 12,
-        K = 13,
-        A = 14
-    }
-
     public enum RankType
     {
         HighCard,
@@ -69,7 +50,12 @@ namespace Euler54_CSharp
 
         public bool Equals(Rank other)
         {
-            return HighestCard == other.HighestCard && Type == other.Type;
+            return CompareTo(other) == 0;
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Rank && ((IEquatable<Rank>)obj).Equals(this);
         }
 
         public override string ToString()
@@ -106,8 +92,12 @@ namespace Euler54_CSharp
 
         public bool Equals(PokerScore other)
         {
-            return BestRank.Equals(other.BestRank)
-                && HighestInHand == other.HighestInHand;
+            return CompareTo(other) == 0;
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is PokerScore && ((IEquatable<PokerScore>)obj).Equals(this);
         }
 
         public override string ToString()
