@@ -20,5 +20,18 @@ namespace Euler54Tests
             Card parsed = Card.Parse("2H");
             Assert.AreEqual<Card>(new Card(Value.Two, Suit.H), parsed);
         }
+
+        [TestMethod]
+        public void ParseQSGiveCardQS()
+        {
+            Card parsed = Card.Parse("QS");
+            Assert.AreEqual<Card>(new Card(Value.Q, Suit.S), parsed);
+        }
+
+        [TestMethod]
+        public void ParseXPThrows()
+        {
+            Assert.ThrowsException<ArgumentException>(() => Card.Parse("XP"));
+        }
     }
 }
