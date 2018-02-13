@@ -25,7 +25,7 @@ namespace Euler54_CSharp
         A = 14
     }
 
-    public enum Rank
+    public enum RankType
     {
         HighCard,
         OnePair,
@@ -39,23 +39,58 @@ namespace Euler54_CSharp
         RoyalFlush
     }
 
-    public struct PokerScore : IEquatable<PokerScore>, IComparable<PokerScore>
+    public struct Rank : IEquatable<Rank>, IComparable<Rank>
     {
-        public readonly Rank BestRank;
-        public readonly Value HighestInRank;
-        public readonly Value HighestInHand;
+        public readonly RankType Type;
+        public readonly Value HighestCard;
 
-        public PokerScore(Rank bestRank, Value highestInRank, Value highestInHand)
+        public Rank(RankType type, Value highestCard)
         {
-            bool validEnums = Enum.IsDefined(typeof(Rank), bestRank)
-                && Enum.IsDefined(typeof(Value), highestInRank)
-                && Enum.IsDefined(typeof(Value), highestInHand);
+            bool validEnums = Enum.IsDefined(typeof(RankType), type)
+                && Enum.IsDefined(typeof(Value), highestCard);
             if (!validEnums)
             {
                 throw new ArgumentException("An enum value is not valid.");
             }
+
+            Type = type;
+            HighestCard = highestCard;
+        }
+
+        public int CompareTo(Rank other)
+        {
+            int cmpType = Type.CompareTo(other.Type);
+            if (cmpType != 0)
+            {
+                return cmpType;
+            }
+            return HighestCard.CompareTo(other.HighestCard);
+        }
+
+        public bool Equals(Rank other)
+        {
+            return HighestCard == other.HighestCard && Type == other.Type;
+        }
+
+        public override string ToString()
+        {
+            return String.Join(" ", Type, HighestCard);
+        }
+    }
+
+    public struct PokerScore : IEquatable<PokerScore>, IComparable<PokerScore>
+    {
+        public readonly Rank BestRank;
+        public readonly Value HighestInHand;
+
+        public PokerScore(Rank bestRank, Value highestInHand)
+        {
+            if (!Enum.IsDefined(typeof(Value), highestInHand))
+            {
+                throw new ArgumentException("An enum value is not valid.");
+            }
+
             BestRank = bestRank;
-            HighestInRank = highestInRank;
             HighestInHand = highestInHand;
         }
 
@@ -66,26 +101,18 @@ namespace Euler54_CSharp
             {
                 return cmpBestRank;
             }
-
-            int cmpHighestInRank = HighestInRank.CompareTo(other.HighestInRank);
-            if (cmpHighestInRank != 0)
-            {
-                return cmpHighestInRank;
-            }
-
             return HighestInHand.CompareTo(other.HighestInHand);
         }
 
         public bool Equals(PokerScore other)
         {
-            return BestRank == other.BestRank
-                && HighestInRank == other.HighestInRank
+            return BestRank.Equals(other.BestRank)
                 && HighestInHand == other.HighestInHand;
         }
 
         public override string ToString()
         {
-            return String.Join(" ", BestRank, HighestInRank, HighestInHand);
+            return String.Join(" ", BestRank, HighestInHand);
         }
     }
 }
