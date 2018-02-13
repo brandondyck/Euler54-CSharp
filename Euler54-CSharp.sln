@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Euler54-CSharp", "Euler54-CSharp\Euler54-CSharp.csproj", "{3859CAFD-AB29-4B00-803C-0448CDFF67DF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Euler54Tests", "Euler54Tests\Euler54Tests.csproj", "{8847929B-47B5-4E3F-AE01-BC5BA3F4030B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{3859CAFD-AB29-4B00-803C-0448CDFF67DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3859CAFD-AB29-4B00-803C-0448CDFF67DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3859CAFD-AB29-4B00-803C-0448CDFF67DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8847929B-47B5-4E3F-AE01-BC5BA3F4030B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8847929B-47B5-4E3F-AE01-BC5BA3F4030B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8847929B-47B5-4E3F-AE01-BC5BA3F4030B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8847929B-47B5-4E3F-AE01-BC5BA3F4030B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
