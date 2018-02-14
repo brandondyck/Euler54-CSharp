@@ -43,20 +43,11 @@ namespace Euler54
             Suit = suit;
         }
 
-        public override string ToString()
-        {
-            return String.Format("Card({0}, {1})", Value, Suit);
-        }
+        public override string ToString() => String.Format("Card({0}, {1})", Value, Suit);
 
-        public bool Equals(Card other)
-        {
-            return Suit.Equals(other.Suit) && Value.Equals(other.Value);
-        }
-
-        public override bool Equals(object obj)
-        {
-            return obj is Card && ((IEquatable<Card>)obj).Equals(this);
-        }
+        public bool Equals(Card other) => Suit.Equals(other.Suit) && Value.Equals(other.Value);
+        
+        public override bool Equals(object obj) => obj is Card && ((IEquatable<Card>)obj).Equals(this);
 
         public static Card Parse(string s)
         {
@@ -72,11 +63,7 @@ namespace Euler54
             }
         }
 
-        public static IEnumerable<Card> ParseHand(string s)
-        {
-            string[] allCardStrings = s.Split(' ');
-            return new ArraySegment<string>(allCardStrings, 0, 5).Select(Parse);
-        }
+        public static IEnumerable<Card> ParseHand(string s) => new ArraySegment<string>(s.Split(' '), 0, 5).Select(Parse);
 
         public static (IEnumerable<Card>, IEnumerable<Card>) ParseHands(string s)
         {

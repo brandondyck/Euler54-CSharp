@@ -16,105 +16,54 @@ namespace Euler54Tests
         }
 
         [TestMethod]
-        public void HighCard()
-        {
-            assertHandRank("8C TS KC 9H 4S", RankType.HighCard, Value.K);
-        }
+        public void HighCard() => assertHandRank("8C TS KC 9H 4S", RankType.HighCard, Value.K);
 
         [TestMethod]
-        public void OnePairWhenBeforeJunk()
-        {
-            assertHandRank("8C TS KC KH 4S", RankType.OnePair, Value.K);
-        }
+        public void OnePairWhenBeforeJunk() => assertHandRank("8C TS KC KH 4S", RankType.OnePair, Value.K);
 
         [TestMethod]
-        public void OnePairAfterJunk()
-        {
-            assertHandRank("8C TS KC TH 4S", RankType.OnePair, Value.T);
-        }
+        public void OnePairAfterJunk() => assertHandRank("8C TS KC TH 4S", RankType.OnePair, Value.T);
 
         [TestMethod]
-        public void TwoPairWithJunkBetween()
-        {
-            assertHandRank("8C TS KC KH 8S", RankType.TwoPairs, Value.K);
-        }
+        public void TwoPairWithJunkBetween() => assertHandRank("8C TS KC KH 8S", RankType.TwoPairs, Value.K);
 
         [TestMethod]
-        public void TwoPairAfterJunk()
-        {
-            assertHandRank("4C TS KC TH 4D", RankType.TwoPairs, Value.T);
-        }
+        public void TwoPairAfterJunk() => assertHandRank("4C TS KC TH 4D", RankType.TwoPairs, Value.T);
 
         [TestMethod]
-        public void TwoPairBeforeJunk()
-        {
-            assertHandRank("4C TS 2C TH 4D", RankType.TwoPairs, Value.T);
-        }
+        public void TwoPairBeforeJunk() => assertHandRank("4C TS 2C TH 4D", RankType.TwoPairs, Value.T);
 
         [TestMethod]
-        public void ThreeOfAKindBeforeJunk()
-        {
-            assertHandRank("5H TC TD TS 7S", RankType.ThreeOfAKind, Value.T);
-        }
+        public void ThreeOfAKindBeforeJunk() => assertHandRank("5H TC TD TS 7S", RankType.ThreeOfAKind, Value.T);
 
         [TestMethod]
-        public void ThreeOfAKindBetweenJunk()
-        {
-            assertHandRank("5H TC TD TS QS", RankType.ThreeOfAKind, Value.T);
-        }
+        public void ThreeOfAKindBetweenJunk() => assertHandRank("5H TC TD TS QS", RankType.ThreeOfAKind, Value.T);
 
         [TestMethod]
-        public void ThreeOfAKindAfterJunk()
-        {
-            assertHandRank("KH TC TD TS AS", RankType.ThreeOfAKind, Value.T);
-        }
+        public void ThreeOfAKindAfterJunk() => assertHandRank("KH TC TD TS AS", RankType.ThreeOfAKind, Value.T);
 
         [TestMethod]
-        public void Straight()
-        {
-            assertHandRank("2H 3C 5D 4H 6D", RankType.Straight, Value.Six);
-        }
+        public void Straight() => assertHandRank("2H 3C 5D 4H 6D", RankType.Straight, Value.Six);
 
         [TestMethod]
-        public void Flush()
-        {
-            assertHandRank("2H 5H 7H 9H JH", RankType.Flush, Value.J);
-        }
+        public void Flush() => assertHandRank("2H 5H 7H 9H JH", RankType.Flush, Value.J);
 
         [TestMethod]
-        public void FullHouseWithTwoFirst()
-        {
-            assertHandRank("2D 2S 2C 5S 5D", RankType.FullHouse, Value.Five);
-        }
+        public void FullHouseWithTwoFirst() => assertHandRank("2D 2S 2C 5S 5D", RankType.FullHouse, Value.Five);
 
         [TestMethod]
-        public void FullHouseWithThreeFirst()
-        {
-            assertHandRank("2D 2S 5C 5S 5D", RankType.FullHouse, Value.Five);
-        }
+        public void FullHouseWithThreeFirst() => assertHandRank("2D 2S 5C 5S 5D", RankType.FullHouse, Value.Five);
 
         [TestMethod]
-        public void FourOfAKindBeforeJunk()
-        {
-            assertHandRank("TH TD TS TC 5H", RankType.FourOfAKind, Value.T);
-        }
+        public void FourOfAKindBeforeJunk() => assertHandRank("TH TD TS TC 5H", RankType.FourOfAKind, Value.T);
 
         [TestMethod]
-        public void FourOfAKindAfterJunk()
-        {
-            assertHandRank("TH TD TS TC KH", RankType.FourOfAKind, Value.T);
-        }
+        public void FourOfAKindAfterJunk() => assertHandRank("TH TD TS TC KH", RankType.FourOfAKind, Value.T);
 
         [TestMethod]
-        public void StraightFlush()
-        {
-            assertHandRank("6H 7H 9H 8H TH", RankType.StraightFlush, Value.T);
-        }
+        public void StraightFlush() => assertHandRank("6H 7H 9H 8H TH", RankType.StraightFlush, Value.T);
 
         [TestMethod]
-        public void RoyalFlush()
-        {
-            assertHandRank("TS JS QS KS AS", RankType.RoyalFlush, Value.A);
-        }
+        public void RoyalFlush() => assertHandRank("TS JS QS KS AS", RankType.RoyalFlush, Value.A);
     }
 }

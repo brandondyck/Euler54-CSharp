@@ -48,20 +48,11 @@ namespace Euler54
             return HighestCard.CompareTo(other.HighestCard);
         }
 
-        public bool Equals(Rank other)
-        {
-            return CompareTo(other) == 0;
-        }
+        public bool Equals(Rank other) => CompareTo(other) == 0;
 
-        public override bool Equals(object obj)
-        {
-            return obj is Rank && ((IEquatable<Rank>)obj).Equals(this);
-        }
+        public override bool Equals(object obj) => obj is Rank && ((IEquatable<Rank>)obj).Equals(this);
 
-        public override string ToString()
-        {
-            return String.Join(" ", Type, HighestCard);
-        }
+        public override string ToString() => String.Join(" ", Type, HighestCard);
 
         #region Rank parsers
 

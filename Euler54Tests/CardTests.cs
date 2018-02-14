@@ -9,32 +9,17 @@ namespace Euler54Tests
     public class CardTests
     {
         [TestMethod]
-        public void Parse10DGivesCardTenD()
-        {
-            Card parsed = Card.Parse("TD");
-            Assert.AreEqual(new Card(Value.T, Suit.D), parsed);
-        }
+        public void Parse10DGivesCardTenD() => Assert.AreEqual(new Card(Value.T, Suit.D), Card.Parse("TD"));
 
         [TestMethod]
-        public void Parse2HGivesCardTwoH()
-        {
-            Card parsed = Card.Parse("2H");
-            Assert.AreEqual<Card>(new Card(Value.Two, Suit.H), parsed);
-        }
+        public void Parse2HGivesCardTwoH() => Assert.AreEqual<Card>(new Card(Value.Two, Suit.H), Card.Parse("2H"));
 
         [TestMethod]
-        public void ParseQSGivesCardQS()
-        {
-            Card parsed = Card.Parse("QS");
-            Assert.AreEqual<Card>(new Card(Value.Q, Suit.S), parsed);
-        }
+        public void ParseQSGivesCardQS() => Assert.AreEqual<Card>(new Card(Value.Q, Suit.S), Card.Parse("QS"));
 
         [TestMethod]
-        public void ParseXPThrows()
-        {
-            Assert.ThrowsException<ArgumentException>(() => Card.Parse("XP"));
-        }
-        
+        public void ParseXPThrows() => Assert.ThrowsException<ArgumentException>(() => Card.Parse("XP"));
+
         [TestMethod]
         public void ParseHandsGivesCorrectCards()
         {
