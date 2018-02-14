@@ -16,37 +16,37 @@ namespace Euler54Tests
         }
 
         [TestMethod]
-        public void HighestCardCorrect()
+        public void HighCard()
         {
             assertHandRank("8C TS KC 9H 4S", RankType.HighCard, Value.K);
         }
 
         [TestMethod]
-        public void OnePairCorrectWhenHighestValue()
+        public void OnePairWhenHighestValue()
         {
             assertHandRank("8C TS KC KH 4S", RankType.OnePair, Value.K);
         }
 
         [TestMethod]
-        public void OnePairCorrectWhenNotHighestValue()
+        public void OnePairWhenNotHighestValue()
         {
             assertHandRank("8C TS KC TH 4S", RankType.OnePair, Value.T);
         }
 
         [TestMethod]
-        public void TwoPairCorrectWithJunkBetween()
+        public void TwoPairWithJunkBetween()
         {
             assertHandRank("8C TS KC KH 8S", RankType.TwoPairs, Value.K);
         }
 
         [TestMethod]
-        public void TwoPairCorrectWithJunkBefore()
+        public void TwoPairWithJunkBefore()
         {
             assertHandRank("4C TS KC TH 4D", RankType.TwoPairs, Value.T);
         }
 
         [TestMethod]
-        public void TwoPairCorrectWithJunkAfter()
+        public void TwoPairWithJunkAfter()
         {
             assertHandRank("4C TS 2C TH 4D", RankType.TwoPairs, Value.T);
         }
