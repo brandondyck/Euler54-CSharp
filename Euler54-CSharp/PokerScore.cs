@@ -66,13 +66,7 @@ namespace Euler54_CSharp
         }
 
         #region Rank parsers
-
-        private static Parser<Card, Rank> ParseHighCard =
-            from highest in Prims.Any<Card>()
-            //from rest in Prims.Any<Card>().Repeat(4)
-            //from eof in Prims.EndOfInput<Card>()
-            select new Rank(RankType.HighCard, highest.Value);
-
+        
         private static Parser<Card, Rank> ParsePairAtStart =
             from first in Prims.Any<Card>()
             from second in Prims.Satisfy<Card>(card => card.Value == first.Value)
@@ -105,10 +99,9 @@ namespace Euler54_CSharp
             var handDesc = hand.OrderByDescending(card => card.Value);
             return Combinator.Choice(
                 ParseTwoPair,
-                ParseOnePair,
-                ParseHighCard)
+                ParseOnePair)
                 .Run(TokenStream.AsStream(handDesc)).Case<Rank>(
-                    left: s => throw new Exception("Failed to find best rank"),
+                    left: s => new Rank(RankType.HighCard, handDesc.First().Value),
                     right: rank => rank);
         }
     }
