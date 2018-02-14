@@ -50,5 +50,23 @@ namespace Euler54Tests
         {
             assertHandRank("4C TS 2C TH 4D", RankType.TwoPairs, Value.T);
         }
+
+        [TestMethod]
+        public void ThreeOfAKindBeforeJunk()
+        {
+            assertHandRank("5H TC TD TS 7S", RankType.ThreeOfAKind, Value.T);
+        }
+
+        [TestMethod]
+        public void ThreeOfAKindBetweenJunk()
+        {
+            assertHandRank("5H TC TD TS QS", RankType.ThreeOfAKind, Value.T);
+        }
+
+        [TestMethod]
+        public void ThreeOfAKindAfterJunk()
+        {
+            assertHandRank("KH TC TD TS AS", RankType.ThreeOfAKind, Value.T);
+        }
     }
 }

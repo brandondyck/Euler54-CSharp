@@ -67,30 +67,38 @@ namespace Euler54_CSharp
 
         #region Rank parsers
         
-        private static Parser<Card, Rank> ParsePairAtStart =
-            from first in Prims.Any<Card>()
-            from second in Prims.Satisfy<Card>(card => card.Value == first.Value)
-            select new Rank(RankType.OnePair, first.Value);
-
-        private static Parser<Card, Unit> DiscardBefore(Parser<Card,Rank> p)
+        private static Parser<Card, Rank> ParseNOfAKind(int n, RankType rankType)
+        {
+            return
+                from first in Prims.Any<Card>().Lookahead()
+                from tuple in Prims.Satisfy<Card>(card => card.Value == first.Value).Repeat(n)
+                select new Rank(rankType, first.Value);
+        }
+        
+        private static Parser<TToken, Unit> DiscardBefore<TToken,T>(Parser<TToken,T> p)
         {
             return Combinator.Choice(p.Lookahead().Ignore(),
-                from junk in Prims.Any<Card>().Ignore()
+                from junk in Prims.Any<TToken>().Ignore()
                 from pAhead in DiscardBefore(p)
                 select junk);
         }
 
-        private static Parser<Card, Rank> ParseOnePair =
-            from junk in DiscardBefore(ParsePairAtStart)
-            from pair in ParsePairAtStart
-            //from rest in Prims.Any<Card>().Many0()
-            //from eof in Prims.EndOfInput<Card>()
-            select pair;
+        private static Parser<TToken,T> FirstAvailable<TToken,T>(Parser<TToken,T> p)
+        {
+            return
+                from junk in DiscardBefore(p)
+                from result in p
+                select result;
+        }
+
+        private static Parser<Card, Rank> ParseOnePair = FirstAvailable(ParseNOfAKind(2, RankType.OnePair));
 
         private static Parser<Card, Rank> ParseTwoPair =
             from pair1 in ParseOnePair
             from pair2 in ParseOnePair
             select new Rank(RankType.TwoPairs, pair1.HighestCard);
+
+        private static Parser<Card, Rank> ParseThreeOfAKind = FirstAvailable(ParseNOfAKind(3, RankType.ThreeOfAKind));
 
         #endregion Rank parsers
 
@@ -98,6 +106,7 @@ namespace Euler54_CSharp
         {
             var handDesc = hand.OrderByDescending(card => card.Value);
             return Combinator.Choice(
+                ParseThreeOfAKind,
                 ParseTwoPair,
                 ParseOnePair)
                 .Run(TokenStream.AsStream(handDesc)).Case<Rank>(
