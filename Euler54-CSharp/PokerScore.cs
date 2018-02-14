@@ -142,12 +142,15 @@ namespace Euler54_CSharp
                 from two in ParseNOfAKind(2, RankType.FullHouse)
                 select three);
 
+        private static Parser<Card, Rank> ParseFourOfAKind = FirstAvailable(ParseNOfAKind(4, RankType.FourOfAKind));
+
         #endregion Rank parsers
 
         public static Rank ComputeBestRank(IEnumerable<Card> hand)
         {
             var handDesc = hand.OrderByDescending(card => card.Value);
             return Combinator.Choice(
+                ParseFourOfAKind,
                 ParseFullHouse,
                 ParseFlush,
                 ParseStraight,

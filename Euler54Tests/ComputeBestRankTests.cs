@@ -92,5 +92,17 @@ namespace Euler54Tests
         {
             assertHandRank("2D 2S 5C 5S 5D", RankType.FullHouse, Value.Five);
         }
+
+        [TestMethod]
+        public void FourOfAKindBeforeJunk()
+        {
+            assertHandRank("TH TD TS TC 5H", RankType.FourOfAKind, Value.T);
+        }
+
+        [TestMethod]
+        public void FourOfAKindAfterJunk()
+        {
+            assertHandRank("TH TD TS TC KH", RankType.FourOfAKind, Value.T);
+        }
     }
 }
