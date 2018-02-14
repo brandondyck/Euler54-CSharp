@@ -80,5 +80,17 @@ namespace Euler54Tests
         {
             assertHandRank("2H 5H 7H 9H JH", RankType.Flush, Value.J);
         }
+
+        [TestMethod]
+        public void FullHouseWithTwoFirst()
+        {
+            assertHandRank("2D 2S 2C 5S 5D", RankType.FullHouse, Value.Five);
+        }
+
+        [TestMethod]
+        public void FullHouseWithThreeFirst()
+        {
+            assertHandRank("2D 2S 5C 5S 5D", RankType.FullHouse, Value.Five);
+        }
     }
 }

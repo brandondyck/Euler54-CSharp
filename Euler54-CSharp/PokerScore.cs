@@ -93,6 +93,19 @@ namespace Euler54_CSharp
                 select result;
         }
 
+        private static Parser<Card, Value> ParseNStraightFrom(int n, Card first, Card previous)
+        {
+            if (n == 0)
+            {
+                return Parser.Return<Card, Value>(first.Value);
+            }
+            return
+                from next in Prims.Satisfy<Card>(card => card.Value == previous.Value - 1)
+                from rest in ParseNStraightFrom(n - 1, first, next)
+                select rest;
+            ;
+        }
+
         private static Func<Card, bool> ValueOneLessThan(Card compareTo)
         {
             return card => card.Value == compareTo.Value - 1;
@@ -109,19 +122,6 @@ namespace Euler54_CSharp
 
         private static Parser<Card, Rank> ParseThreeOfAKind = FirstAvailable(ParseNOfAKind(3, RankType.ThreeOfAKind));
 
-        private static Parser<Card,Value> ParseNStraightFrom(int n, Card first, Card previous)
-        {
-            if (n == 0)
-            {
-                return Parser.Return<Card, Value>(first.Value);
-            }
-            return
-                from next in Prims.Satisfy<Card>(card => card.Value == previous.Value - 1)
-                from rest in ParseNStraightFrom(n - 1, first, next)
-                select rest;
-            ;
-        }
-
         private static Parser<Card, Rank> ParseStraight =
             from first in Prims.Any<Card>()
             from rest in ParseNStraightFrom(4, first, first)
@@ -132,12 +132,23 @@ namespace Euler54_CSharp
             from rest in Prims.Satisfy<Card>(card => card.Suit == first.Suit).Repeat(4)
             select new Rank(RankType.Flush, first.Value);
 
+        private static Parser<Card, Rank> ParseFullHouse =
+            Combinator.Choice(
+                from two in ParseNOfAKind(2, RankType.FullHouse)
+                from three in ParseNOfAKind(3, RankType.FullHouse)
+                select two,
+
+                from three in ParseNOfAKind(3, RankType.FullHouse)
+                from two in ParseNOfAKind(2, RankType.FullHouse)
+                select three);
+
         #endregion Rank parsers
 
         public static Rank ComputeBestRank(IEnumerable<Card> hand)
         {
             var handDesc = hand.OrderByDescending(card => card.Value);
             return Combinator.Choice(
+                ParseFullHouse,
                 ParseFlush,
                 ParseStraight,
                 ParseThreeOfAKind,
