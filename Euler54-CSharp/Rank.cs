@@ -54,8 +54,6 @@ namespace Euler54
 
         public override string ToString() => String.Join(" ", Type, HighestCard);
 
-        #region Rank parsers
-
         #region Parsing utilities
 
         private static Parser<Card, Rank> ParseNOfAKind(int n, RankType rankType) =>
@@ -99,6 +97,10 @@ namespace Euler54
             card => card.Value == compareTo.Value - 1;
 
         #endregion Parsing utilities
+
+        #region Rank parsers
+
+        // The rank parsers all assume that the hand is in descending order by card value.
 
         private static Parser<Card, Rank> ParseOnePair = FirstAvailable(ParseNOfAKind(2, RankType.OnePair));
 
