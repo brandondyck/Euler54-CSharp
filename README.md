@@ -1,6 +1,6 @@
 # Euler54
 
-Solution to [Project Euler #54](https://projecteuler.net/problem=54) in C#.
+Solution to [Project Euler Problem 54](https://projecteuler.net/problem=54) in C#.
 
 ## Rationale
 
@@ -11,6 +11,9 @@ It turns out that we can approach poker scoring as a parsing problem. If we [abu
 This would be much more concise in Haskell.
 
 ## License
+
+The file `p054_poker.txt` is taken from  [Project Euler Problem 54](https://projecteuler.net/problem=54) and is licensed under [Creative Commons Licence:
+Attribution-NonCommercial-ShareAlike 2.0 UK: England & Wales](http://creativecommons.org/licenses/by-nc-sa/2.0/uk/).
 
 Copyright 2018 Brandon Dyck <<brandon@dyck.us>>
 
