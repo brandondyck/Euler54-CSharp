@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Euler54_CSharp;
+using Euler54;
 
 namespace Euler54Tests
 {

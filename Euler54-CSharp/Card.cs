@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace Euler54_CSharp
+namespace Euler54
 {
     public enum Suit { H, D, C, S }
 
@@ -62,8 +62,8 @@ namespace Euler54_CSharp
         {
             try
             {
-                Value value = (Value)Enum.Parse(typeof(Euler54_CSharp.Value), s[0].ToString());
-                Suit suit = (Suit)Enum.Parse(typeof(Euler54_CSharp.Suit), s[1].ToString());
+                Value value = (Value)Enum.Parse(typeof(Euler54.Value), s[0].ToString());
+                Suit suit = (Suit)Enum.Parse(typeof(Euler54.Suit), s[1].ToString());
                 return new Card(value, suit);
             }
             catch (Exception e)

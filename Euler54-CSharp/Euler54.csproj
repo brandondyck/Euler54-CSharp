@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{3859CAFD-AB29-4B00-803C-0448CDFF67DF}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Euler54_CSharp</RootNamespace>
-    <AssemblyName>Euler54-CSharp</AssemblyName>
+    <RootNamespace>Euler54</RootNamespace>
+    <AssemblyName>Euler54</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

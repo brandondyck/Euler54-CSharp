@@ -60,9 +60,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Euler54-CSharp\Euler54-CSharp.csproj">
+    <ProjectReference Include="..\Euler54-CSharp\Euler54.csproj">
       <Project>{3859cafd-ab29-4b00-803c-0448cdff67df}</Project>
-      <Name>Euler54-CSharp</Name>
+      <Name>Euler54</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

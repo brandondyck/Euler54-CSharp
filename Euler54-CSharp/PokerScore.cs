@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Parseq;
 using Parseq.Combinators;
 
-namespace Euler54_CSharp
+namespace Euler54
 {
     public enum RankType
     {
