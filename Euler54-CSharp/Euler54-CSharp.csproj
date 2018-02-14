@@ -32,6 +32,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Parseq, Version=3.0.0.0, Culture=neutral, PublicKeyToken=8bbc3af4d49a52d2, processorArchitecture=MSIL">
+      <HintPath>..\packages\Parseq.3.0.0.0\lib\portable-net40+sl5+win8+wp8+wpa81\Parseq.dll</HintPath>
+    </Reference>
+    <Reference Include="Synapse, Version=1.1.4174.35585, Culture=neutral, PublicKeyToken=39d873d7526b3bac, processorArchitecture=MSIL">
+      <HintPath>..\packages\Synapse.1.1.4174.35585\lib\net40\Synapse.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">

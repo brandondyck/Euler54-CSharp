@@ -72,6 +72,12 @@ namespace Euler54_CSharp
             }
         }
 
+        public static IEnumerable<Card> ParseHand(string s)
+        {
+            string[] allCardStrings = s.Split(' ');
+            return new ArraySegment<string>(allCardStrings, 0, 5).Select(Parse);
+        }
+
         public static (IEnumerable<Card>, IEnumerable<Card>) ParseHands(string s)
         {
             string[] allCardStrings = s.Split(' ');

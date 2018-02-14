@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Parseq;
+using Parseq.Combinators;
 
 namespace Euler54_CSharp
 {
@@ -61,6 +63,53 @@ namespace Euler54_CSharp
         public override string ToString()
         {
             return String.Join(" ", Type, HighestCard);
+        }
+
+        #region Rank parsers
+
+        private static Parser<Card, Rank> ParseHighCard =
+            from highest in Prims.Any<Card>()
+            //from rest in Prims.Any<Card>().Repeat(4)
+            //from eof in Prims.EndOfInput<Card>()
+            select new Rank(RankType.HighCard, highest.Value);
+
+        private static Parser<Card, Rank> ParsePairAtStart =
+            from first in Prims.Any<Card>()
+            from second in Prims.Satisfy<Card>(card => card.Value == first.Value)
+            select new Rank(RankType.OnePair, first.Value);
+
+        private static Parser<Card, Unit> DiscardBefore(Parser<Card,Rank> p)
+        {
+            return Combinator.Choice(p.Lookahead().Ignore(),
+                from junk in Prims.Any<Card>().Ignore()
+                from pAhead in DiscardBefore(p)
+                select junk);
+        }
+
+        private static Parser<Card, Rank> ParseOnePair =
+            from junk in DiscardBefore(ParsePairAtStart)
+            from pair in ParsePairAtStart
+            //from rest in Prims.Any<Card>().Many0()
+            //from eof in Prims.EndOfInput<Card>()
+            select pair;
+
+        private static Parser<Card, Rank> ParseTwoPair =
+            from pair1 in ParseOnePair
+            from pair2 in ParseOnePair
+            select new Rank(RankType.TwoPairs, pair1.HighestCard);
+
+        #endregion Rank parsers
+
+        public static Rank ComputeBestRank(IEnumerable<Card> hand)
+        {
+            var handDesc = hand.OrderByDescending(card => card.Value);
+            return Combinator.Choice(
+                ParseTwoPair,
+                ParseOnePair,
+                ParseHighCard)
+                .Run(TokenStream.AsStream(handDesc)).Case<Rank>(
+                    left: s => throw new Exception("Failed to find best rank"),
+                    right: rank => rank);
         }
     }
 

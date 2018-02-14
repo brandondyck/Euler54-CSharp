@@ -54,6 +54,7 @@
     <Compile Include="PokerScoreTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CardTests.cs" />
+    <Compile Include="ComputeBestRankTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
