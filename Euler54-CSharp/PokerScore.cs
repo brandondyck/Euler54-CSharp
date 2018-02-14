@@ -76,8 +76,8 @@ namespace Euler54_CSharp
                 from tuple in Prims.Satisfy<Card>(card => card.Value == first.Value).Repeat(n)
                 select new Rank(rankType, first.Value);
         }
-        
-        private static Parser<TToken, Unit> DiscardBefore<TToken,T>(Parser<TToken,T> p)
+
+        private static Parser<TToken, Unit> DiscardBefore<TToken, T>(Parser<TToken, T> p)
         {
             return Combinator.Choice(p.Lookahead().Ignore(),
                 from junk in Prims.Any<TToken>().Ignore()
@@ -85,7 +85,7 @@ namespace Euler54_CSharp
                 select junk);
         }
 
-        private static Parser<TToken,T> FirstAvailable<TToken,T>(Parser<TToken,T> p)
+        private static Parser<TToken, T> FirstAvailable<TToken, T>(Parser<TToken, T> p)
         {
             return
                 from junk in DiscardBefore(p)
@@ -166,21 +166,29 @@ namespace Euler54_CSharp
             from rest in ParseNWithRunningComparison(4, AreStraightFlush, first, first)
             select new Rank(RankType.RoyalFlush, first.Value);
 
+        private static (RankType rankType, Parser<Card, Rank> parser)[] RankParsers =
+        {
+            (RankType.OnePair, ParseOnePair),
+            (RankType.TwoPairs, ParseTwoPair),
+            (RankType.ThreeOfAKind, ParseThreeOfAKind),
+            (RankType.FourOfAKind, ParseFourOfAKind),
+            (RankType.FullHouse, ParseFullHouse),
+            (RankType.Flush, ParseFlush),
+            (RankType.StraightFlush, ParseStraightFlush),
+            (RankType.Straight, ParseStraight),
+            (RankType.RoyalFlush, ParseRoyalFlush)
+        };
+
         #endregion Rank parsers
 
         public static Rank ComputeBestRank(IEnumerable<Card> hand)
         {
             var handDesc = hand.OrderByDescending(card => card.Value);
-            return Combinator.Choice(
-                ParseRoyalFlush,
-                ParseStraightFlush,
-                ParseFourOfAKind,
-                ParseFullHouse,
-                ParseFlush,
-                ParseStraight,
-                ParseThreeOfAKind,
-                ParseTwoPair,
-                ParseOnePair)
+            var orderedParsers =
+                from rankAndparser in RankParsers
+                orderby rankAndparser.rankType descending
+                select rankAndparser.parser;
+            return Combinator.Choice(orderedParsers)
                 .Run(TokenStream.AsStream(handDesc)).Case<Rank>(
                     left: s => new Rank(RankType.HighCard, handDesc.First().Value),
                     right: rank => rank);
