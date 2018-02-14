@@ -127,12 +127,18 @@ namespace Euler54_CSharp
             from rest in ParseNStraightFrom(4, first, first)
             select new Rank(RankType.Straight, first.Value);
 
+        private static Parser<Card, Rank> ParseFlush =
+            from first in Prims.Any<Card>()
+            from rest in Prims.Satisfy<Card>(card => card.Suit == first.Suit).Repeat(4)
+            select new Rank(RankType.Flush, first.Value);
+
         #endregion Rank parsers
 
         public static Rank ComputeBestRank(IEnumerable<Card> hand)
         {
             var handDesc = hand.OrderByDescending(card => card.Value);
             return Combinator.Choice(
+                ParseFlush,
                 ParseStraight,
                 ParseThreeOfAKind,
                 ParseTwoPair,

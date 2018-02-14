@@ -74,5 +74,11 @@ namespace Euler54Tests
         {
             assertHandRank("2H 3C 5D 4H 6D", RankType.Straight, Value.Six);
         }
+
+        [TestMethod]
+        public void Flush()
+        {
+            assertHandRank("2H 5H 7H 9H JH", RankType.Flush, Value.J);
+        }
     }
 }
