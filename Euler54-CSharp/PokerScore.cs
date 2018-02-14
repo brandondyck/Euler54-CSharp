@@ -161,12 +161,18 @@ namespace Euler54_CSharp
             from rest in ParseNWithRunningComparison(4, AreStraightFlush, first, first)
             select new Rank(RankType.StraightFlush, first.Value);
 
+        private static Parser<Card, Rank> ParseRoyalFlush =
+            from first in Prims.Satisfy<Card>(card => card.Value == Value.A)
+            from rest in ParseNWithRunningComparison(4, AreStraightFlush, first, first)
+            select new Rank(RankType.RoyalFlush, first.Value);
+
         #endregion Rank parsers
 
         public static Rank ComputeBestRank(IEnumerable<Card> hand)
         {
             var handDesc = hand.OrderByDescending(card => card.Value);
             return Combinator.Choice(
+                ParseRoyalFlush,
                 ParseStraightFlush,
                 ParseFourOfAKind,
                 ParseFullHouse,

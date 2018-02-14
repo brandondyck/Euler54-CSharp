@@ -110,5 +110,11 @@ namespace Euler54Tests
         {
             assertHandRank("6H 7H 9H 8H TH", RankType.StraightFlush, Value.T);
         }
+
+        [TestMethod]
+        public void RoyalFlush()
+        {
+            assertHandRank("TS JS QS KS AS", RankType.RoyalFlush, Value.A);
+        }
     }
 }
