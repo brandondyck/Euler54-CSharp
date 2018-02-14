@@ -68,5 +68,11 @@ namespace Euler54Tests
         {
             assertHandRank("KH TC TD TS AS", RankType.ThreeOfAKind, Value.T);
         }
+
+        [TestMethod]
+        public void Straight()
+        {
+            assertHandRank("2H 3C 5D 4H 6D", RankType.Straight, Value.Six);
+        }
     }
 }
