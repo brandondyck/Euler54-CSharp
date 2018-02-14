@@ -9,21 +9,21 @@ namespace Euler54Tests
     public class CardTests
     {
         [TestMethod]
-        public void Parse10DGiveCardTenD()
+        public void Parse10DGivesCardTenD()
         {
             Card parsed = Card.Parse("TD");
             Assert.AreEqual(new Card(Value.T, Suit.D), parsed);
         }
 
         [TestMethod]
-        public void Parse2HGiveCardTwoH()
+        public void Parse2HGivesCardTwoH()
         {
             Card parsed = Card.Parse("2H");
             Assert.AreEqual<Card>(new Card(Value.Two, Suit.H), parsed);
         }
 
         [TestMethod]
-        public void ParseQSGiveCardQS()
+        public void ParseQSGivesCardQS()
         {
             Card parsed = Card.Parse("QS");
             Assert.AreEqual<Card>(new Card(Value.Q, Suit.S), parsed);
