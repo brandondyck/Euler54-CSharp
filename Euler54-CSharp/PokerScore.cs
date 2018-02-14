@@ -93,17 +93,29 @@ namespace Euler54_CSharp
                 select result;
         }
 
-        private static Parser<Card, Value> ParseNStraightFrom(int n, Card first, Card previous)
+        private delegate bool RunningComparison(Card previous, Card current);
+
+        private static Parser<Card, Value> ParseNWithRunningComparison(int n, RunningComparison comparison, Card first, Card previous)
         {
             if (n == 0)
             {
                 return Parser.Return<Card, Value>(first.Value);
             }
             return
-                from next in Prims.Satisfy<Card>(card => card.Value == previous.Value - 1)
-                from rest in ParseNStraightFrom(n - 1, first, next)
+                from current in Prims.Satisfy<Card>(curr => comparison(previous, curr))
+                from rest in ParseNWithRunningComparison(n - 1, comparison, first, current)
                 select rest;
             ;
+        }
+
+        private static bool AreStraightFlush(Card previous, Card current)
+        {
+            return current.Suit == previous.Suit && current.Value == previous.Value - 1;
+        }
+
+        private static bool AreStraight(Card previous, Card current)
+        {
+            return current.Value == previous.Value - 1;
         }
 
         private static Func<Card, bool> ValueOneLessThan(Card compareTo)
@@ -124,7 +136,7 @@ namespace Euler54_CSharp
 
         private static Parser<Card, Rank> ParseStraight =
             from first in Prims.Any<Card>()
-            from rest in ParseNStraightFrom(4, first, first)
+            from rest in ParseNWithRunningComparison(4, AreStraight, first, first)
             select new Rank(RankType.Straight, first.Value);
 
         private static Parser<Card, Rank> ParseFlush =
@@ -144,12 +156,18 @@ namespace Euler54_CSharp
 
         private static Parser<Card, Rank> ParseFourOfAKind = FirstAvailable(ParseNOfAKind(4, RankType.FourOfAKind));
 
+        private static Parser<Card, Rank> ParseStraightFlush =
+            from first in Prims.Any<Card>()
+            from rest in ParseNWithRunningComparison(4, AreStraightFlush, first, first)
+            select new Rank(RankType.StraightFlush, first.Value);
+
         #endregion Rank parsers
 
         public static Rank ComputeBestRank(IEnumerable<Card> hand)
         {
             var handDesc = hand.OrderByDescending(card => card.Value);
             return Combinator.Choice(
+                ParseStraightFlush,
                 ParseFourOfAKind,
                 ParseFullHouse,
                 ParseFlush,

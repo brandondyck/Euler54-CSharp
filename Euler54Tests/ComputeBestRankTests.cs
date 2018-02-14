@@ -104,5 +104,11 @@ namespace Euler54Tests
         {
             assertHandRank("TH TD TS TC KH", RankType.FourOfAKind, Value.T);
         }
+
+        [TestMethod]
+        public void StraightFlush()
+        {
+            assertHandRank("6H 7H 9H 8H TH", RankType.StraightFlush, Value.T);
+        }
     }
 }
