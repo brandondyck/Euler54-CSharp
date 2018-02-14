@@ -211,6 +211,11 @@ namespace Euler54_CSharp
             HighestInHand = highestInHand;
         }
 
+        public static PokerScore Compute(IEnumerable<Card> hand)
+        {
+            return new PokerScore(Rank.ComputeBestRank(hand), (from card in hand select card.Value).Max());
+        }
+
         public int CompareTo(PokerScore other)
         {
             int cmpBestRank = BestRank.CompareTo(other.BestRank);
