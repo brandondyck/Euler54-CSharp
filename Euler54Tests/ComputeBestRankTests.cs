@@ -22,13 +22,13 @@ namespace Euler54Tests
         }
 
         [TestMethod]
-        public void OnePairWhenHighestValue()
+        public void OnePairWhenBeforeJunk()
         {
             assertHandRank("8C TS KC KH 4S", RankType.OnePair, Value.K);
         }
 
         [TestMethod]
-        public void OnePairWhenNotHighestValue()
+        public void OnePairAfterJunk()
         {
             assertHandRank("8C TS KC TH 4S", RankType.OnePair, Value.T);
         }
@@ -40,13 +40,13 @@ namespace Euler54Tests
         }
 
         [TestMethod]
-        public void TwoPairWithJunkBefore()
+        public void TwoPairAfterJunk()
         {
             assertHandRank("4C TS KC TH 4D", RankType.TwoPairs, Value.T);
         }
 
         [TestMethod]
-        public void TwoPairWithJunkAfter()
+        public void TwoPairBeforeJunk()
         {
             assertHandRank("4C TS 2C TH 4D", RankType.TwoPairs, Value.T);
         }
