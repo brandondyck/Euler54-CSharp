@@ -58,29 +58,21 @@ namespace Euler54
 
         #region Parsing utilities
 
-        private static Parser<Card, Rank> ParseNOfAKind(int n, RankType rankType)
-        {
-            return
-                from first in Prims.Any<Card>().Lookahead()
-                from tuple in Prims.Satisfy<Card>(card => card.Value == first.Value).Repeat(n)
-                select new Rank(rankType, first.Value);
-        }
+        private static Parser<Card, Rank> ParseNOfAKind(int n, RankType rankType) =>
+            from first in Prims.Any<Card>().Lookahead()
+            from tuple in Prims.Satisfy<Card>(card => card.Value == first.Value).Repeat(n)
+            select new Rank(rankType, first.Value);
 
-        private static Parser<TToken, Unit> DiscardBefore<TToken, T>(Parser<TToken, T> p)
-        {
-            return Combinator.Choice(p.Lookahead().Ignore(),
+        private static Parser<TToken, Unit> DiscardBefore<TToken, T>(Parser<TToken, T> p) =>
+            Combinator.Choice(p.Lookahead().Ignore(),
                 from junk in Prims.Any<TToken>().Ignore()
                 from pAhead in DiscardBefore(p)
                 select junk);
-        }
 
-        private static Parser<TToken, T> FirstAvailable<TToken, T>(Parser<TToken, T> p)
-        {
-            return
-                from junk in DiscardBefore(p)
-                from result in p
-                select result;
-        }
+        private static Parser<TToken, T> FirstAvailable<TToken, T>(Parser<TToken, T> p) =>
+            from junk in DiscardBefore(p)
+            from result in p
+            select result;
 
         private delegate bool RunningComparison(Card previous, Card current);
 
@@ -97,20 +89,14 @@ namespace Euler54
             ;
         }
 
-        private static bool AreStraightFlush(Card previous, Card current)
-        {
-            return current.Suit == previous.Suit && current.Value == previous.Value - 1;
-        }
+        private static bool AreStraightFlush(Card previous, Card current) =>
+            current.Suit == previous.Suit && current.Value == previous.Value - 1;
 
-        private static bool AreStraight(Card previous, Card current)
-        {
-            return current.Value == previous.Value - 1;
-        }
+        private static bool AreStraight(Card previous, Card current) =>
+            current.Value == previous.Value - 1;
 
-        private static Func<Card, bool> ValueOneLessThan(Card compareTo)
-        {
-            return card => card.Value == compareTo.Value - 1;
-        }
+        private static Func<Card, bool> ValueOneLessThan(Card compareTo) =>
+            card => card.Value == compareTo.Value - 1;
 
         #endregion Parsing utilities
 
